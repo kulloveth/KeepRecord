@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">KeepRecord</string>
+    <string name="select_recorded_date">Select Recorded Date</string>
+    <string name="keeping_record">Keeping Record</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="date_recorded">Date Recorded</string>
+    <string name="name">Name</string>
+    <string name="delete">Delete</string>
+</resources>

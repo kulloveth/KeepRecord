@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        app:iconTint="@color/white"
+        android:id="@+id/search"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+
+    <item
+        app:iconTint="@color/white"
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_action_filter"
+        android:title="@string/filter"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_by_name"
+                    android:title="@string/name" />
+                <item
+                    android:id="@+id/sort_by_date_added"
+                    android:checked="true"
+                    android:title="@string/date_recorded" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

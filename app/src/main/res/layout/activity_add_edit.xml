@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEditActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/title_of_record_inputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_16dp"
+            android:layout_marginTop="@dimen/dimens_16dp"
+            android:layout_marginRight="@dimen/dimens_16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/title_of_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/detail_of_record_inputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_16dp"
+            app:layout_constraintEnd_toEndOf="@id/title_of_record_inputLayout"
+            app:layout_constraintStart_toStartOf="@id/title_of_record_inputLayout"
+            app:layout_constraintTop_toBottomOf="@id/title_of_record_inputLayout">
+
+            <EditText
+                android:id="@+id/detail_of_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/date_recorded"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_16dp"
+            android:text="@string/select_recorded_date"
+            android:textSize="@dimen/dimens_14sp"
+            app:layout_constraintEnd_toEndOf="@id/detail_of_record_inputLayout"
+            app:layout_constraintStart_toStartOf="@id/detail_of_record_inputLayout"
+            app:layout_constraintTop_toBottomOf="@id/detail_of_record_inputLayout" />
+
+        <TextView
+            android:id="@+id/recorded_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_16dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_recorded" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dimens_16dp"
+        app:backgroundTint="@color/white"
+        app:srcCompat="@drawable/ic_action_save" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
