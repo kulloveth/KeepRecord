@@ -1,16 +1,20 @@
-package com.developer.kulloveth.keeprecord
+package com.developer.kulloveth.keeprecord.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.developer.kulloveth.keeprecord.R
+import com.developer.kulloveth.keeprecord.adapters.RecordedRecyclerViewAdapter
+import com.developer.kulloveth.keeprecord.model.RecordedItemModel
+import com.developer.kulloveth.keeprecord.utils.RecyclerViewItemCLickListener
+import com.developer.kulloveth.keeprecord.viewmodel.RecordViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
@@ -23,11 +27,14 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recordedItemAdpter = RecordedRecyclerViewAdapter(object : RecyclerViewItemCLickListener {
-            override fun onItemCicked(recordedItem: RecordedItemModel) {
-                starRecordedItemActivity(recordedItem.id)
-            }
-        })
+        recordedItemAdpter =
+            RecordedRecyclerViewAdapter(
+                object :
+                    RecyclerViewItemCLickListener {
+                    override fun onItemCicked(recordedItem: RecordedItemModel) {
+                        starRecordedItemActivity(recordedItem.id)
+                    }
+                })
 
 
         rv_records.layoutManager = LinearLayoutManager(this)

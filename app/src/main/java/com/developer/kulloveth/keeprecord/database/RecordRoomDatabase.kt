@@ -1,14 +1,15 @@
-package com.developer.kulloveth.keeprecord
+package com.developer.kulloveth.keeprecord.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.developer.kulloveth.keeprecord.model.RecordedItemModel
 
 @Database(entities = [RecordedItemModel::class], version = 3,exportSchema = false)
 abstract class RecordRoomDatabase : RoomDatabase() {
 
-    abstract fun recordDao(): Record
+    abstract fun recordDao(): RecordDao
 
 
     companion object {

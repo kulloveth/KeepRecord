@@ -1,4 +1,4 @@
-package com.developer.kulloveth.keeprecord
+package com.developer.kulloveth.keeprecord.activities
 
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.DatePicker
 import androidx.lifecycle.ViewModelProvider
+import com.developer.kulloveth.keeprecord.R
+import com.developer.kulloveth.keeprecord.model.RecordedItemModel
+import com.developer.kulloveth.keeprecord.utils.DateHelper
+import com.developer.kulloveth.keeprecord.viewmodel.RecordViewModel
 import kotlinx.android.synthetic.main.activity_add_edit.*
 import java.util.*
 
@@ -15,7 +19,7 @@ class AddEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
 
     private val calendar = Calendar.getInstance()
     private lateinit var datePickerDialog: DatePickerDialog
-    private lateinit var recordViewModel:RecordViewModel
+    private lateinit var recordViewModel: RecordViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +38,13 @@ class AddEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
         }
 
         fab.setOnClickListener {
-            val mrecordItem=RecordedItemModel(
-                id=0,
-               recordTopic = title_of_record.text.toString(),
-                recordDetail =  detail_of_record.text.toString(),
-                recordedDate = recorded_date_tv.text.toString())
+            val mrecordItem=
+                RecordedItemModel(
+                    id = 0,
+                    recordTopic = title_of_record.text.toString(),
+                    recordDetail = detail_of_record.text.toString(),
+                    recordedDate = recorded_date_tv.text.toString()
+                )
             recordViewModel.insert(mrecordItem)
                 finish()
         }

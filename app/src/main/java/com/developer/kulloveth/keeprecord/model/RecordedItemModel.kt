@@ -1,4 +1,4 @@
-package com.developer.kulloveth.keeprecord
+package com.developer.kulloveth.keeprecord.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

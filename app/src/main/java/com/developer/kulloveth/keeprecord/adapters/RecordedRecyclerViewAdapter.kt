@@ -1,9 +1,12 @@
-package com.developer.kulloveth.keeprecord
+package com.developer.kulloveth.keeprecord.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.developer.kulloveth.keeprecord.R
+import com.developer.kulloveth.keeprecord.model.RecordedItemModel
+import com.developer.kulloveth.keeprecord.utils.RecyclerViewItemCLickListener
 import kotlinx.android.synthetic.main.item_rv_record.view.*
 
 class RecordedRecyclerViewAdapter(private val recyclerViewItemClickListener: RecyclerViewItemCLickListener) :

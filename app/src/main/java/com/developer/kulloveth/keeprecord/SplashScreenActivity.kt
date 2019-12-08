@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
+import com.developer.kulloveth.keeprecord.activities.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
