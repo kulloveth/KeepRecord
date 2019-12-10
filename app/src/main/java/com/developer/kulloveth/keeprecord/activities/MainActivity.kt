@@ -45,7 +45,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
 
         recordViewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
         recordViewModel.allRecords.observe(this, Observer { record ->
-            record?.let { recordedItemAdpter.setBorrowedItemList(it)
+            record?.let {
+
+                recordedItemAdpter.submitList(it.toMutableList())
                 rv_records.adapter = recordedItemAdpter}
         })
 

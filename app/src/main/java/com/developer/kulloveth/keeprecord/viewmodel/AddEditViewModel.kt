@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.developer.kulloveth.keeprecord.database.RecordDao
 import com.developer.kulloveth.keeprecord.database.RecordRoomDatabase
 import com.developer.kulloveth.keeprecord.model.RecordedItemModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddEditViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,8 +25,13 @@ class AddEditViewModel(application: Application) : AndroidViewModel(application)
     }
 
 
-    fun edit(id: Int) = viewModelScope.launch {
+    fun edit(id: Int) = viewModelScope.launch(Dispatchers.IO) {
 
-        editRecordLiveData.value = recordDao.fetchRecordById(id)
+        editRecordLiveData.postValue(recordDao.fetchRecordById(id))
+    }
+
+
+    fun update(record: RecordedItemModel) = viewModelScope.launch {
+        recordDao.upRecordById(record)
     }
 }

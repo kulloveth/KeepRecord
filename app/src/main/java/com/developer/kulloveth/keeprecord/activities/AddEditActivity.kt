@@ -23,25 +23,27 @@ import java.util.*
 class AddEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
+    private var recordedId: Int? = null
     private val calendar = Calendar.getInstance()
     private lateinit var datePickerDialog: DatePickerDialog
     private lateinit var recordViewModel: AddEditViewModel
-    private var recordedItem: RecordedItemModel? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit)
         recordViewModel = ViewModelProvider(this).get(AddEditViewModel::class.java)
-        val recordedId = intent.extras?.getInt(MainActivity.INTENT_EXTRA_KEY)
+         var recordedId = intent.extras?.getInt(MainActivity.INTENT_EXTRA_KEY)
 
         if (recordedId != null) {
-            recordViewModel.edit(recordedId)
-           recordViewModel.editRecordLiveData.observe(this,
-                Observer {recordedItem->
-                    title_of_record.setText(recordedItem.recordTopic)
-                    detail_of_record.setText(recordedItem.recordDetail)
-                    date_recorded.text = recordedItem.recordedDate
+           recordViewModel.edit(recordedId)
+            recordViewModel.editRecordLiveData.observe(this,
+                Observer {
+                    title_of_record.setText(it.recordTopic)
+                    detail_of_record.setText(it.recordDetail)
+                    recorded_date_tv.text = it.recordedDate
+
                 })
 //                it[recordedId]
 //            })
@@ -59,19 +61,29 @@ class AddEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
         }
 
         fab.setOnClickListener {
-            val mrecordItem =
-                RecordedItemModel(
-                    id = 0,
-                    recordTopic = title_of_record.text.toString(),
-                    recordDetail = detail_of_record.text.toString(),
-                    recordedDate = recorded_date_tv.text.toString()
-                )
-            if (recordedItem != null) {
-                mrecordItem.id = recordedItem!!.id
-            }
-            recordViewModel.insert(mrecordItem)
+          insertAndUpdateRecord(recordedId)
             finish()
         }
+    }
+
+    fun insertAndUpdateRecord(recordedId : Int?){
+
+
+        val mrecordItem =
+            RecordedItemModel(
+                id = recordedId,
+                recordTopic = title_of_record.text.toString(),
+                recordDetail = detail_of_record.text.toString(),
+                recordedDate = recorded_date_tv.text.toString()
+            )
+        if (recordedId == null) {
+            recordViewModel.insert(mrecordItem)
+        }else {
+            recordViewModel.update(
+                mrecordItem
+            )
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

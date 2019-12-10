@@ -3,6 +3,9 @@ package com.developer.kulloveth.keeprecord.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kulloveth.keeprecord.R
 import com.developer.kulloveth.keeprecord.model.RecordedItemModel
@@ -10,13 +13,9 @@ import com.developer.kulloveth.keeprecord.utils.RecyclerViewItemCLickListener
 import kotlinx.android.synthetic.main.item_rv_record.view.*
 
 class RecordedRecyclerViewAdapter(private val recyclerViewItemClickListener: RecyclerViewItemCLickListener) :
-    RecyclerView.Adapter<RecordedRecyclerViewAdapter.RecordedViewHolder>() {
-    private var mRecordedItemList = mutableListOf<RecordedItemModel>()
+    ListAdapter<RecordedItemModel, RecordedRecyclerViewAdapter.RecordedViewHolder>(DIFF_UTIL) {
+    //private var mRecordedItemList = mutableListOf<RecordedItemModel>()
 
-    fun setBorrowedItemList(recordedItemList: List<RecordedItemModel>) {
-        mRecordedItemList.addAll(recordedItemList)
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordedViewHolder {
         return RecordedViewHolder(
@@ -28,11 +27,9 @@ class RecordedRecyclerViewAdapter(private val recyclerViewItemClickListener: Rec
         )
     }
 
-    override fun getItemCount()= mRecordedItemList.size
-
 
     override fun onBindViewHolder(holder: RecordedViewHolder, position: Int) {
-        holder.bind(mRecordedItemList[position])
+        holder.bind(getItem(position))
     }
 
 
@@ -48,6 +45,24 @@ class RecordedRecyclerViewAdapter(private val recyclerViewItemClickListener: Rec
             }
 
         }
+    }
+
+    object DIFF_UTIL : DiffUtil.ItemCallback<RecordedItemModel>() {
+        override fun areItemsTheSame(
+            oldItem: RecordedItemModel,
+            newItem: RecordedItemModel
+        ): Boolean {
+
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: RecordedItemModel,
+            newItem: RecordedItemModel
+        ): Boolean {
+            return newItem == oldItem
+        }
+
     }
 
 }

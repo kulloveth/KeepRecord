@@ -7,7 +7,5 @@ import androidx.room.PrimaryKey
 data class RecordedItemModel (
 
     @PrimaryKey(autoGenerate = true)
-    var id:Int, val recordTopic: String, val recordDetail: String, val recordedDate: String
-
-
-    )
+    var id:Int? = null, val recordTopic: String, val recordDetail: String, val recordedDate: String
+)
