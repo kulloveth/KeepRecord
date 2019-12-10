@@ -22,11 +22,14 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
 
     private lateinit var recordedItemAdpter: RecordedRecyclerViewAdapter
     private lateinit var recordViewModel: RecordViewModel
+
     //  private lateinit var recordedItemList: List<RecordedItemModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         recordedItemAdpter =
             RecordedRecyclerViewAdapter(
                 object :
@@ -54,6 +57,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
 
     private fun starRecordedItemActivity(id: Int? = null) {
         val intent = Intent(this, AddEditActivity::class.java)
+        if(id != null){
+            intent.putExtra(INTENT_EXTRA_KEY,id)
+        }
         startActivity(intent)
     }
 
@@ -97,4 +103,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     }
 
 
+    companion object {
+        val INTENT_EXTRA_KEY = "BORROW_ID"
+    }
 }

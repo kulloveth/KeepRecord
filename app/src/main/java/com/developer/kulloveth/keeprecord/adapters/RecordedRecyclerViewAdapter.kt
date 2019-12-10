@@ -44,8 +44,10 @@ class RecordedRecyclerViewAdapter(private val recyclerViewItemClickListener: Rec
             itemView.recorded_date_textview.text = recordedItem.recordedDate
             itemView.setOnClickListener {
                 recyclerViewItemClickListener.onItemCicked(recordedItem)
+
             }
 
         }
     }
+
 }

@@ -3,30 +3,51 @@ package com.developer.kulloveth.keeprecord.activities
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
 import android.widget.DatePicker
 import androidx.lifecycle.ViewModelProvider
 import com.developer.kulloveth.keeprecord.R
+import com.developer.kulloveth.keeprecord.database.RecordRepository
+import com.developer.kulloveth.keeprecord.database.RecordRoomDatabase
 import com.developer.kulloveth.keeprecord.model.RecordedItemModel
 import com.developer.kulloveth.keeprecord.utils.DateHelper
+import com.developer.kulloveth.keeprecord.viewmodel.AddEditViewModel
 import com.developer.kulloveth.keeprecord.viewmodel.RecordViewModel
 import kotlinx.android.synthetic.main.activity_add_edit.*
 import java.util.*
+
 
 class AddEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
 
     private val calendar = Calendar.getInstance()
     private lateinit var datePickerDialog: DatePickerDialog
-    private lateinit var recordViewModel: RecordViewModel
+    private lateinit var recordViewModel: AddEditViewModel
+    private var recordedItem: RecordedItemModel? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit)
+        recordViewModel = ViewModelProvider(this).get(AddEditViewModel::class.java)
+        val recordedId = intent.extras?.getInt(MainActivity.INTENT_EXTRA_KEY)
 
-        recordViewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
+        if (recordedId != null) {
+            recordViewModel.edit(recordedId)
+           recordViewModel.editRecordLiveData.observe(this,
+                Observer {recordedItem->
+                    title_of_record.setText(recordedItem.recordTopic)
+                    detail_of_record.setText(recordedItem.recordDetail)
+                    date_recorded.text = recordedItem.recordedDate
+                })
+//                it[recordedId]
+//            })
 
+
+        }
         datePickerDialog = DatePickerDialog(
             this, this, calendar.get(Calendar.YEAR), calendar.get(
                 Calendar.MONTH
@@ -38,15 +59,18 @@ class AddEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener 
         }
 
         fab.setOnClickListener {
-            val mrecordItem=
+            val mrecordItem =
                 RecordedItemModel(
                     id = 0,
                     recordTopic = title_of_record.text.toString(),
                     recordDetail = detail_of_record.text.toString(),
                     recordedDate = recorded_date_tv.text.toString()
                 )
+            if (recordedItem != null) {
+                mrecordItem.id = recordedItem!!.id
+            }
             recordViewModel.insert(mrecordItem)
-                finish()
+            finish()
         }
     }
 
